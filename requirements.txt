@@ -1,0 +1,195 @@
+    EXAMPLE_USER_STRUCTURE
+    {
+        "id":"84564",
+        "name":"",
+        "email":"",
+        "savedJobs":[],
+        "appliedJobs":[],
+        "interviews":[],
+        "preferences":[]
+    }
+
+APIs
+1. /getJobs  (for first screen)
+   method - GET 
+   params - location(coordinates object{ "latitude":"11.4429", "longitude":"75.6976", "radius":150 (in kms)}), categories(array), jobTypes(array), offset(for pagination)
+   return - array of jobs satisfying the conditions (if categories and jobTypes are empty, return all jobs)
+   JOB_STRUCTURE
+    {
+            "id": "45758758",
+            "title": "Health Care Assistant",
+            "category": "Healthcare",
+            "center": "Evanshi Nutrition Center",
+            "location": "Quilandy", 
+            "type": "Part-time",
+            "salary": "₹1,000/day",
+            "posted": "2020-10-01"
+    }
+
+2. /getJobDetails (for job details screen)
+    method - GET
+    params - userId, jobId
+    return - job details
+    JOB_DETAILS_STRUCTURE
+    {       "id": "45758758",
+            "title": "Health Care Assistant",
+            "category": "Healthcare",
+            "center": "Evanshi Nutrition Center",
+            "location": "Quilandy", 
+            "type": "Part-time",
+            "salary": "₹1,000/day",
+            "posted": "2020-10-01",
+            "saved":true, (check whether the job is already saved by user and return boolean) // to toggle bookmark icon //
+            "applied":false, (check whether the user already applied for that job and return boolean) // to toggle apply button //
+            "coordinates":{
+                "latitude":"11.4429",
+                "longitude":"75.6976",
+            }
+            "imageUrl": "https://picsum.photos/200/300",
+            "details": "Free training. No investment. Just 2 or 3 hours work. Need Internet and android mobile. Communication skill.",
+            "creator":{
+                "id":"4646464",
+                "imageUrl":"https://picsum.photos/30/30",
+                "title":"Evanshi Nutrition Center",
+                "category":"Health/beauty"
+            },
+    }
+
+
+3. /saveJob (for bookmarking)
+    method - POST
+    params - userId, jobId
+    action - add the job in saved jobs list of the user
+
+4. /unsaveJob 
+    method - POST
+    params - userId, jobId
+    action - remove the job from saved jobs list of the user
+
+5. /getSavedJobs 
+    method - GET
+    params - userId
+    return - array of saved jobs by the user
+    JOB_STRUCTURE
+    {
+            "id": "45758758",
+            "title": "Health Care Assistant",
+            "category": "Healthcare",
+            "center": "Evanshi Nutrition Center",
+            "location": "Quilandy", 
+            "type": "Part-time",
+            "salary": "₹1,000/day",
+            "posted": "2020-10-01",
+            "creator":{
+                "id":"4646464",
+                "imageUrl":"https://picsum.photos/30/30",
+            },
+    }
+
+6. /applyJob
+    method - POST
+    params - userId, jobId, userDetails{name,city,email,phone} // more user details to be added //
+    action - add the job to the applied jobs array of the user and remove the job from saved list if it is present in it. 
+
+7. /getAppliedjobs
+    method - GET
+    params - userId
+    return - array of applied jobs by the user
+    JOB_STRUCTURE
+    {
+        "id": "2",
+        "status": "In review",
+        "title": "Food Production Worker",
+        "category": "Management",
+        "center": "Al Fiza",
+        "location": "Quilandy",
+        "type": "Full-time",
+        "salary": "₹9,000/hour",
+        "posted": "2020-10-02",
+        "creator":{
+                "id":"4646464",
+                "imageUrl":"https://picsum.photos/30/30",
+        },
+    }
+
+8. /postJob
+    method - POST
+    params - userId, jobDetails
+    JOB_DETAILS_STRUCTURE
+    {
+        creatorName:"abc",
+        jobTitle:"def",
+        description:"fsdfsdf sadfsd sadf ",
+        location:{
+            "latitude":"11.4429",
+            "longitude":"75.6976",
+        },
+        salaryType:"per hour",
+        minimumSalary:"2000",
+        maximumSalary:"4000",
+        jobType:"Full-time",
+        email:"abc@gmail.com"
+    }
+    action - create a new job 
+
+9. /getJobPosts
+    method - GET
+    params - userId
+    return - array of jobs created by the user
+    JOB_STRUCTURE
+    {
+        id: "1",
+        jobTitle: "Personal Assistant",
+        imageUrl: "https://picsum.photos/30/30",
+        newApplications: 2,
+        creatorName: "abc",
+        description: "fsdfsdf sadfsd sadf ",
+        location: {
+                "latitude":"11.4429",
+                "longitude":"75.6976",
+        },
+        salaryType: "per hour",
+        minimumSalary: "2000",
+        maximumSalary: "4000",
+        jobType: "Full-time",
+        email: "abc@gmail.com"
+    },
+
+10. /updateJob
+    method - POST
+    params - jobId, jobDetails
+    action - update the job details
+
+11. /deleteJob
+    method - POST
+    params - jobId
+    action - delete the job
+
+12. /getApplications
+    method - GET
+    params - userId
+    action - get applications array to the jobs posted by the user
+    APPLICATION_STRUCTURE
+    {
+            "applicationId": "2",
+            "jobTitle": "PERSONAL ASSISTANT",
+            "appliedOn": "2020-10-01",
+            "contacted": false,
+            "applicantDetails": {
+                "name": "Ella Micek",
+                "city": "Bangalore",
+                "email": "fsfg@gmail.com",
+                "phone": "987654321"
+            },
+    }
+
+13. /setAsContacted
+    method - POST
+    params - applicationId
+    action - mark as contacted
+
+14. /setAsNotContacted
+    method - POST
+    params - applicationId
+    action - mark as not contacted
+

@@ -1,0 +1,5 @@
+export const LIGHTGREY = '#EBECF0'
+export const DARKGREY = '#565656'
+export const BORDERCOLOR = '#CDCDCD'
+export const FORESTGREEN = '#228B22'
+export const BLUE = '#147efb'
