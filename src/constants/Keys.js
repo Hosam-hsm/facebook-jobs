@@ -1,1 +1,1 @@
-export const GOOGLEAPIKEY = 'AIzaSyChumujpZ48KsRwA2R3ZEsTpsX1n7LzrN0' //should be an environment variable
+export const GOOGLEAPIKEY = 'YOUR_KEY' //should be an environment variable
