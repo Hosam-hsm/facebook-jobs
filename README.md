@@ -7,7 +7,7 @@ Facebook jobs module built using React Native
 * Run the code.
 
 <b>Screenshots</b>
-<br>
+<br><br>
 ![Jobs screen](assets/Jobs.jpg)
 ![Details screen](assets/Details.jpg)
 ![Categories screen](assets/Categories.jpg)
